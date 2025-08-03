@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Order } from "@/app/types";
@@ -29,21 +29,7 @@ export default function AdminPage() {
     totalCustomers: 0,
   });
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-      return;
-    }
-
-    if (session?.user?.role !== "ADMIN") {
-      router.push("/");
-      return;
-    }
-
-    fetchOrders();
-  }, [session, status, router]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const response = await fetch("/api/orders?admin=true");
       if (response.ok) {
@@ -56,7 +42,21 @@ export default function AdminPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+      return;
+    }
+
+    if (session?.user?.role !== "ADMIN") {
+      router.push("/");
+      return;
+    }
+
+    fetchOrders();
+  }, [session, status, router, fetchOrders]);
 
   const calculateStats = (orderData: Order[]) => {
     const totalOrders = orderData.length;

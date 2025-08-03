@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Order } from "@/app/types";
@@ -21,18 +21,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login");
-      return;
-    }
-
-    if (session?.user?.id) {
-      fetchOrders();
-    }
-  }, [session, status, router]);
-
-  const fetchOrders = async () => {
+  const fetchOrders = useCallback(async () => {
     try {
       const response = await fetch(`/api/orders?userId=${session?.user?.id}`);
       if (response.ok) {
@@ -44,7 +33,18 @@ export default function OrdersPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [session?.user?.id]);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/login");
+      return;
+    }
+
+    if (session?.user?.id) {
+      fetchOrders();
+    }
+  }, [session, status, router, fetchOrders]);
 
   if (status === "loading" || loading) {
     return (
@@ -69,7 +69,7 @@ export default function OrdersPage() {
             No orders yet
           </h2>
           <p className='text-gray-500 mb-6'>
-            When you place orders, they'll appear here.
+            When you place orders, they&apos;ll appear here.
           </p>
           <button
             onClick={() => router.push("/products")}

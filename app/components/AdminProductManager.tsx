@@ -185,7 +185,8 @@ export default function AdminProductManager({ onClose }: AdminProductManagerProp
                 name="name"
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-gray-900 placeholder-gray-500"
+                placeholder="Enter product name"
                 required
               />
             </div>
@@ -196,7 +197,7 @@ export default function AdminProductManager({ onClose }: AdminProductManagerProp
                 name="categoryId"
                 value={formData.categoryId}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-gray-900"
                 required
               >
                 <option value="">Select a category</option>
@@ -216,7 +217,8 @@ export default function AdminProductManager({ onClose }: AdminProductManagerProp
                 value={formData.price}
                 onChange={handleInputChange}
                 step="0.01"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-gray-900 placeholder-gray-500"
+                placeholder="0.00"
                 required
               />
             </div>
@@ -228,7 +230,8 @@ export default function AdminProductManager({ onClose }: AdminProductManagerProp
                 name="stock"
                 value={formData.stock}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-gray-900 placeholder-gray-500"
+                placeholder="0"
                 required
               />
             </div>
@@ -240,7 +243,7 @@ export default function AdminProductManager({ onClose }: AdminProductManagerProp
                 name="imageUrl"
                 value={formData.imageUrl}
                 onChange={handleInputChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-gray-900 placeholder-gray-500"
                 placeholder="https://example.com/image.jpg"
               />
             </div>
@@ -252,7 +255,7 @@ export default function AdminProductManager({ onClose }: AdminProductManagerProp
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 text-gray-900 placeholder-gray-500"
                 placeholder="Product description..."
               />
             </div>

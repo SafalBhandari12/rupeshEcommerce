@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const categoryId = searchParams.get("categoryId");
     const search = searchParams.get("search");
 
-    let where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (categoryId) {
       where.categoryId = categoryId;

@@ -62,7 +62,7 @@ export default function SignupPage() {
         const data = await response.json();
         setError(data.error || "An error occurred");
       }
-    } catch (error) {
+    } catch (_err) {
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);

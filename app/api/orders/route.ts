@@ -8,7 +8,7 @@ export async function GET(request: NextRequest) {
     const userId = searchParams.get("userId");
     const isAdmin = searchParams.get("admin") === "true";
 
-    let where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (!isAdmin && userId) {
       where.userId = userId;
