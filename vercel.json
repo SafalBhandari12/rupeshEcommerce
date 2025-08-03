@@ -1,0 +1,8 @@
+{
+  "buildCommand": "prisma generate && npm run build",
+  "functions": {
+    "app/api/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
