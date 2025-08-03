@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <Providers>
           <Navbar />
-          <main className='min-h-screen bg-gray-50'>{children}</main>
+          <main className='pt-16 min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50'>{children}</main>
         </Providers>
       </body>
     </html>

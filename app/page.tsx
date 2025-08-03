@@ -28,63 +28,74 @@ export default function Home() {
   }, []);
 
   return (
-    <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8'>
+    <div className='pt-20'>
       {/* Hero Section */}
-      <div className='bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg text-white p-8 mb-12'>
-        <div className='max-w-3xl'>
-          <h1 className='text-4xl font-bold mb-4'>
-            Welcome to Our ECommerce Store
-          </h1>
-          <p className='text-xl mb-6'>
-            Discover amazing products at great prices. Shop now and enjoy fast
-            delivery!
-          </p>
-          <Link
-            href='/products'
-            className='bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors'
-          >
-            Shop Now
-          </Link>
+      <div className='bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-20'>
+        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
+          <div className='text-center relative'>
+            {/* Animated background elements */}
+            <div className='absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full animate-pulse'></div>
+            <div className='absolute bottom-0 left-0 w-24 h-24 bg-white/3 rounded-full animate-bounce'></div>
+            <div className='absolute top-1/2 right-1/4 w-16 h-16 bg-gray-600/20 rounded-full animate-ping'></div>
+            
+            <div className='relative z-10'>
+              <h1 className='text-5xl md:text-6xl font-bold mb-6 text-white leading-tight'>
+                Welcome to Our <span className='text-gray-300'>ECommerce Store</span>
+              </h1>
+              <p className='text-xl md:text-2xl mb-8 text-gray-200 leading-relaxed max-w-2xl mx-auto'>
+                Discover amazing products at great prices. Shop now and enjoy fast
+                delivery with our premium collection!
+              </p>
+              <Link
+                href='/products'
+                className='inline-block bg-white text-gray-900 px-8 py-4 rounded-2xl font-semibold hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-2xl'
+              >
+                Shop Now →
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Featured Products */}
-      <section>
-        <div className='flex justify-between items-center mb-8'>
-          <h2 className='text-3xl font-bold text-gray-900'>
-            Featured Products
+      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
+        {/* Featured Products */}
+        <section>
+          <div className='flex justify-between items-center mb-12'>
+            <h2 className='text-4xl font-bold text-gray-900'>
+              Featured Products
           </h2>
           <Link
             href='/products'
-            className='text-blue-600 hover:text-blue-800 font-semibold'
+            className='bg-white px-6 py-3 text-gray-700 hover:text-gray-900 font-semibold transition-all duration-300 hover:scale-105 rounded-2xl border border-gray-200 shadow-sm hover:shadow-lg'
           >
             View All Products →
           </Link>
         </div>
 
         {isLoading ? (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
             {[...Array(6)].map((_, i) => (
               <div
                 key={i}
-                className='bg-white rounded-lg shadow-md p-4 animate-pulse'
+                className='bg-white rounded-2xl shadow-sm p-6 animate-pulse border border-gray-100'
               >
-                <div className='h-48 bg-gray-200 rounded mb-4'></div>
-                <div className='h-4 bg-gray-200 rounded mb-2'></div>
-                <div className='h-4 bg-gray-200 rounded w-2/3'></div>
+                <div className='h-48 bg-gray-200 rounded-xl mb-4'></div>
+                <div className='h-4 bg-gray-200 rounded-lg mb-3'></div>
+                <div className='h-4 bg-gray-200 rounded-lg w-2/3'></div>
               </div>
             ))}
           </div>
         ) : featuredProducts.length > 0 ? (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
             {featuredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
         ) : (
-          <div className='text-center py-12'>
-            <p className='text-gray-500 text-lg'>No products available yet.</p>
-            <p className='text-gray-400 text-sm mt-2'>
+          <div className='text-center py-16 bg-white rounded-2xl border border-gray-100 shadow-sm'>
+            <div className='w-16 h-16 border-4 border-gray-300 border-t-gray-900 rounded-full animate-spin mx-auto mb-4'></div>
+            <p className='text-gray-500 text-lg mb-2'>No products available yet.</p>
+            <p className='text-gray-400 text-sm'>
               Check back later or contact the administrator.
             </p>
           </div>
@@ -92,15 +103,15 @@ export default function Home() {
       </section>
 
       {/* Features */}
-      <section className='mt-16'>
-        <h2 className='text-3xl font-bold text-gray-900 text-center mb-12'>
+      <section className='mt-20'>
+        <h2 className='text-4xl font-bold text-center mb-16 text-gray-900'>
           Why Choose Us?
         </h2>
         <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-          <div className='text-center'>
-            <div className='bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4'>
+          <div className='bg-white text-center p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 group'>
+            <div className='bg-gray-900 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-2xl'>
               <svg
-                className='w-8 h-8 text-blue-600'
+                className='w-10 h-10 text-white'
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'
@@ -113,16 +124,16 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <h3 className='text-xl font-semibold mb-2'>Fast Delivery</h3>
-            <p className='text-gray-600'>
-              Quick and reliable shipping to your doorstep
+            <h3 className='text-2xl font-semibold mb-4 text-gray-800 group-hover:text-gray-900 transition-colors duration-300'>Fast Delivery</h3>
+            <p className='text-gray-600 leading-relaxed'>
+              Quick and reliable shipping to your doorstep with premium packaging
             </p>
           </div>
 
-          <div className='text-center'>
-            <div className='bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4'>
+          <div className='bg-white text-center p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 group'>
+            <div className='bg-green-600 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-2xl'>
               <svg
-                className='w-8 h-8 text-green-600'
+                className='w-10 h-10 text-white'
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'
@@ -135,16 +146,16 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <h3 className='text-xl font-semibold mb-2'>Quality Products</h3>
-            <p className='text-gray-600'>
-              Carefully curated items from trusted suppliers
+            <h3 className='text-2xl font-semibold mb-4 text-gray-800 group-hover:text-green-600 transition-colors duration-300'>Quality Products</h3>
+            <p className='text-gray-600 leading-relaxed'>
+              Carefully curated items from trusted suppliers worldwide
             </p>
           </div>
 
-          <div className='text-center'>
-            <div className='bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4'>
+          <div className='bg-white text-center p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 group'>
+            <div className='bg-blue-600 w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg group-hover:shadow-2xl'>
               <svg
-                className='w-8 h-8 text-purple-600'
+                className='w-10 h-10 text-white'
                 fill='none'
                 stroke='currentColor'
                 viewBox='0 0 24 24'
@@ -157,13 +168,14 @@ export default function Home() {
                 />
               </svg>
             </div>
-            <h3 className='text-xl font-semibold mb-2'>Best Prices</h3>
-            <p className='text-gray-600'>
-              Competitive pricing with regular discounts
+            <h3 className='text-2xl font-semibold mb-4 text-gray-800 group-hover:text-blue-600 transition-colors duration-300'>Best Prices</h3>
+            <p className='text-gray-600 leading-relaxed'>
+              Competitive pricing with regular discounts and exclusive offers
             </p>
           </div>
         </div>
       </section>
+      </div>
     </div>
   );
 }
