@@ -38,7 +38,6 @@ export default function LoginPage() {
   };
 
   return (
-      return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 pt-24'>
       <div className='max-w-md w-full space-y-8'>
         <div className='bg-white/70 backdrop-blur-md rounded-2xl shadow-2xl border border-white/20 p-8'>
@@ -66,7 +65,10 @@ export default function LoginPage() {
 
             <div className='space-y-4'>
               <div>
-                <label htmlFor='email' className='text-sm font-medium text-gray-700 mb-2 block'>
+                <label
+                  htmlFor='email'
+                  className='text-sm font-medium text-gray-700 mb-2 block'
+                >
                   Email address
                 </label>
                 <input
@@ -75,14 +77,17 @@ export default function LoginPage() {
                   type='email'
                   autoComplete='email'
                   required
-                  className='w-full px-4 py-3 border border-gray-300/50 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm transition-all duration-300'
+                  className='w-full px-4 py-3 border border-gray-300/50 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white transition-all duration-300'
                   placeholder='Enter your email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
-                <label htmlFor='password' className='text-sm font-medium text-gray-700 mb-2 block'>
+                <label
+                  htmlFor='password'
+                  className='text-sm font-medium text-gray-700 mb-2 block'
+                >
                   Password
                 </label>
                 <input
@@ -91,7 +96,7 @@ export default function LoginPage() {
                   type='password'
                   autoComplete='current-password'
                   required
-                  className='w-full px-4 py-3 border border-gray-300/50 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm transition-all duration-300'
+                  className='w-full px-4 py-3 border border-gray-300/50 placeholder-gray-500 text-gray-900 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white transition-all duration-300'
                   placeholder='Enter your password'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -110,13 +115,15 @@ export default function LoginPage() {
                   Signing in...
                 </>
               ) : (
-                'Sign in'
+                "Sign in"
               )}
             </button>
 
             <div className='text-center'>
               <div className='bg-blue-50/70 backdrop-blur-sm border border-blue-200 rounded-xl p-4'>
-                <p className='text-sm text-blue-700 font-medium'>Admin credentials:</p>
+                <p className='text-sm text-blue-700 font-medium'>
+                  Admin credentials:
+                </p>
                 <p className='text-xs text-blue-600 mt-1'>
                   admin@ecommerce.com / admin123
                 </p>

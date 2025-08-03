@@ -75,8 +75,18 @@ export default function SignupPage() {
         <div className='max-w-md w-full text-center'>
           <div className='bg-green-50/70 backdrop-blur-md border border-green-200 text-green-600 px-6 py-4 rounded-2xl shadow-lg'>
             <div className='w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4'>
-              <svg className='w-8 h-8 text-green-600' fill='none' stroke='currentColor' viewBox='0 0 24 24'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 13l4 4L19 7' />
+              <svg
+                className='w-8 h-8 text-green-600'
+                fill='none'
+                stroke='currentColor'
+                viewBox='0 0 24 24'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth={2}
+                  d='M5 13l4 4L19 7'
+                />
               </svg>
             </div>
             <p className='font-medium'>Account created successfully!</p>
@@ -126,7 +136,7 @@ export default function SignupPage() {
                   name='name'
                   type='text'
                   autoComplete='name'
-                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm transition-all duration-300'
+                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white text-gray-900 transition-all duration-300'
                   placeholder='Enter your full name'
                   value={formData.name}
                   onChange={handleChange}
@@ -146,7 +156,7 @@ export default function SignupPage() {
                   type='email'
                   autoComplete='email'
                   required
-                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm transition-all duration-300'
+                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white text-gray-900 transition-all duration-300'
                   placeholder='Enter your email'
                   value={formData.email}
                   onChange={handleChange}
@@ -166,7 +176,7 @@ export default function SignupPage() {
                   type='password'
                   autoComplete='new-password'
                   required
-                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm transition-all duration-300'
+                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white text-gray-900 transition-all duration-300'
                   placeholder='Enter your password'
                   value={formData.password}
                   onChange={handleChange}
@@ -186,7 +196,7 @@ export default function SignupPage() {
                   type='password'
                   autoComplete='new-password'
                   required
-                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white/50 backdrop-blur-sm transition-all duration-300'
+                  className='w-full px-4 py-3 border border-gray-300/50 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-gray-500 bg-white text-gray-900 transition-all duration-300'
                   placeholder='Confirm your password'
                   value={formData.confirmPassword}
                   onChange={handleChange}
@@ -205,7 +215,7 @@ export default function SignupPage() {
                   Creating account...
                 </>
               ) : (
-                'Create account'
+                "Create account"
               )}
             </button>
           </form>
