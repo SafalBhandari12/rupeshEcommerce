@@ -18,7 +18,7 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (session?.user?.id) {
+    if (session?.user?.id && session.user.role !== "ADMIN") {
       fetchCartItems(session.user.id);
     }
   }, [session, fetchCartItems]);

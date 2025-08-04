@@ -5,8 +5,16 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Order } from "@/app/types";
 import { formatPrice, formatDate } from "@/app/lib/utils";
-import { Package, Users, ShoppingCart, TrendingUp, Settings, BarChart } from "lucide-react";
+import {
+  Package,
+  Users,
+  ShoppingCart,
+  TrendingUp,
+  Settings,
+  BarChart,
+} from "lucide-react";
 import AdminProductManager from "@/app/components/AdminProductManager";
+import AdminCategoryManager from "@/app/components/AdminCategoryManager";
 
 const statusColors = {
   PENDING: "bg-yellow-100 text-yellow-800",
@@ -21,7 +29,7 @@ export default function AdminPage() {
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState("dashboard");
   const [stats, setStats] = useState({
     totalOrders: 0,
     totalRevenue: 0,
@@ -114,32 +122,43 @@ export default function AdminPage() {
       <div className='border-b border-gray-200 mb-8'>
         <nav className='-mb-px flex space-x-8'>
           <button
-            onClick={() => setActiveTab('dashboard')}
+            onClick={() => setActiveTab("dashboard")}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
-              activeTab === 'dashboard'
-                ? 'border-gray-900 text-gray-900'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              activeTab === "dashboard"
+                ? "border-gray-900 text-gray-900"
+                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             }`}
           >
             <BarChart className='w-4 h-4 inline mr-2' />
             Dashboard
           </button>
           <button
-            onClick={() => setActiveTab('products')}
+            onClick={() => setActiveTab("products")}
             className={`py-2 px-1 border-b-2 font-medium text-sm ${
-              activeTab === 'products'
-                ? 'border-gray-900 text-gray-900'
-                : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+              activeTab === "products"
+                ? "border-gray-900 text-gray-900"
+                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
             }`}
           >
             <Settings className='w-4 h-4 inline mr-2' />
             Manage Products
           </button>
+          <button
+            onClick={() => setActiveTab("categories")}
+            className={`py-2 px-1 border-b-2 font-medium text-sm ${
+              activeTab === "categories"
+                ? "border-gray-900 text-gray-900"
+                : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+            }`}
+          >
+            <Package className='w-4 h-4 inline mr-2' />
+            Manage Categories
+          </button>
         </nav>
       </div>
 
       {/* Tab Content */}
-      {activeTab === 'dashboard' ? (
+      {activeTab === "dashboard" ? (
         <>
           {/* Stats Cards */}
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8'>
@@ -147,7 +166,9 @@ export default function AdminPage() {
               <div className='flex items-center'>
                 <Package className='h-8 w-8 text-gray-600' />
                 <div className='ml-4'>
-                  <p className='text-sm font-medium text-gray-600'>Total Orders</p>
+                  <p className='text-sm font-medium text-gray-600'>
+                    Total Orders
+                  </p>
                   <p className='text-2xl font-bold text-gray-900'>
                     {stats.totalOrders}
                   </p>
@@ -159,7 +180,9 @@ export default function AdminPage() {
               <div className='flex items-center'>
                 <TrendingUp className='h-8 w-8 text-gray-600' />
                 <div className='ml-4'>
-                  <p className='text-sm font-medium text-gray-600'>Total Revenue</p>
+                  <p className='text-sm font-medium text-gray-600'>
+                    Total Revenue
+                  </p>
                   <p className='text-2xl font-bold text-gray-900'>
                     {formatPrice(stats.totalRevenue)}
                   </p>
@@ -197,7 +220,9 @@ export default function AdminPage() {
           {/* Orders Table */}
           <div className='bg-white rounded-lg border'>
             <div className='px-6 py-4 border-b'>
-              <h2 className='text-xl font-semibold text-gray-900'>Recent Orders</h2>
+              <h2 className='text-xl font-semibold text-gray-900'>
+                Recent Orders
+              </h2>
             </div>
 
             <div className='overflow-x-auto'>
@@ -270,8 +295,10 @@ export default function AdminPage() {
             </div>
           </div>
         </>
-      ) : (
+      ) : activeTab === "products" ? (
         <AdminProductManager />
+      ) : (
+        <AdminCategoryManager />
       )}
     </div>
   );
