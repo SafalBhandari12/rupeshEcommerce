@@ -12,6 +12,7 @@ import {
   TrendingUp,
   Settings,
   BarChart,
+  Loader2,
 } from "lucide-react";
 import AdminProductManager from "@/app/components/AdminProductManager";
 import AdminCategoryManager from "@/app/components/AdminCategoryManager";
@@ -29,6 +30,7 @@ export default function AdminPage() {
   const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
+  const [updatingOrder, setUpdatingOrder] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState("dashboard");
   const [stats, setStats] = useState({
     totalOrders: 0,
@@ -87,6 +89,7 @@ export default function AdminPage() {
   };
 
   const updateOrderStatus = async (orderId: string, newStatus: string) => {
+    setUpdatingOrder(orderId);
     try {
       const response = await fetch("/api/orders", {
         method: "PUT",
@@ -99,6 +102,8 @@ export default function AdminPage() {
       }
     } catch (error) {
       console.error("Error updating order status:", error);
+    } finally {
+      setUpdatingOrder(null);
     }
   };
 
@@ -274,19 +279,26 @@ export default function AdminPage() {
                         </span>
                       </td>
                       <td className='px-6 py-4 whitespace-nowrap text-sm text-gray-500'>
-                        <select
-                          value={order.status}
-                          onChange={(e) =>
-                            updateOrderStatus(order.id, e.target.value)
-                          }
-                          className='text-sm border border-gray-300 rounded px-2 py-1'
-                        >
-                          <option value='PENDING'>Pending</option>
-                          <option value='PROCESSING'>Processing</option>
-                          <option value='SHIPPED'>Shipped</option>
-                          <option value='DELIVERED'>Delivered</option>
-                          <option value='CANCELLED'>Cancelled</option>
-                        </select>
+                        <div className='flex items-center space-x-2'>
+                          {updatingOrder === order.id ? (
+                            <Loader2 className='h-4 w-4 animate-spin text-gray-500' />
+                          ) : (
+                            <select
+                              value={order.status}
+                              onChange={(e) =>
+                                updateOrderStatus(order.id, e.target.value)
+                              }
+                              disabled={updatingOrder === order.id}
+                              className='text-sm border border-gray-300 rounded px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed'
+                            >
+                              <option value='PENDING'>Pending</option>
+                              <option value='PROCESSING'>Processing</option>
+                              <option value='SHIPPED'>Shipped</option>
+                              <option value='DELIVERED'>Delivered</option>
+                              <option value='CANCELLED'>Cancelled</option>
+                            </select>
+                          )}
+                        </div>
                       </td>
                     </tr>
                   ))}

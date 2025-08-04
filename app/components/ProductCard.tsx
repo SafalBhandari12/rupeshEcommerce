@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Loader2 } from "lucide-react";
 import { Product } from "@/app/types";
 import { useCartStore } from "@/app/store/cartStore";
 import { formatPrice } from "@/app/lib/utils";
@@ -13,7 +13,7 @@ interface ProductCardProps {
 
 export default function ProductCard({ product }: ProductCardProps) {
   const { data: session } = useSession();
-  const { addToCart } = useCartStore();
+  const { addToCart, isAddingToCart } = useCartStore();
 
   const handleAddToCart = async () => {
     if (session?.user?.id) {
@@ -60,10 +60,20 @@ export default function ProductCard({ product }: ProductCardProps) {
           {session && product.stock > 0 ? (
             <button
               onClick={handleAddToCart}
-              className='w-full bg-gray-900 hover:bg-gray-800 text-white px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 transform hover:scale-105 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl'
+              disabled={isAddingToCart}
+              className='w-full bg-gray-900 hover:bg-gray-800 disabled:bg-gray-400 text-white px-4 py-3 rounded-xl text-sm font-medium transition-all duration-300 transform hover:scale-105 disabled:transform-none flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl disabled:shadow-none'
             >
-              <ShoppingCart className='h-4 w-4' />
-              <span>Add to Cart</span>
+              {isAddingToCart ? (
+                <>
+                  <Loader2 className='h-4 w-4 animate-spin' />
+                  <span>Adding...</span>
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className='h-4 w-4' />
+                  <span>Add to Cart</span>
+                </>
+              )}
             </button>
           ) : product.stock === 0 ? (
             <span className='w-full text-center text-red-600 text-sm font-medium py-3 px-4 rounded-xl bg-red-50 border border-red-100'>

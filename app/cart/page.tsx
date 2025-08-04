@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCartStore } from "@/app/store/cartStore";
 import { formatPrice } from "@/app/lib/utils";
-import { Minus, Plus, Trash2, ShoppingBag } from "lucide-react";
+import { Minus, Plus, Trash2, ShoppingBag, Loader2 } from "lucide-react";
 import Image from "next/image";
 
 export default function CartPage() {
@@ -14,11 +14,14 @@ export default function CartPage() {
   const {
     items,
     isLoading,
+    isUpdatingQuantity,
+    isRemovingFromCart,
     fetchCartItems,
     updateQuantity,
     removeFromCart,
     getTotal,
   } = useCartStore();
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   useEffect(() => {
     if (status === "unauthenticated") {
@@ -44,6 +47,7 @@ export default function CartPage() {
   const handleCheckout = async () => {
     if (!session?.user?.id) return;
 
+    setIsCheckingOut(true);
     try {
       const response = await fetch("/api/orders", {
         method: "POST",
@@ -59,6 +63,8 @@ export default function CartPage() {
     } catch (error) {
       console.error("Error creating order:", error);
       alert("Failed to create order");
+    } finally {
+      setIsCheckingOut(false);
     }
   };
 
@@ -128,20 +134,26 @@ export default function CartPage() {
                     onClick={() =>
                       handleQuantityChange(item.id, item.quantity - 1)
                     }
-                    className='p-1 rounded-md hover:bg-gray-100'
+                    disabled={isUpdatingQuantity}
+                    className='p-1 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed'
                   >
                     <Minus className='h-4 w-4' />
                   </button>
 
                   <span className='text-lg font-semibold px-3'>
-                    {item.quantity}
+                    {isUpdatingQuantity ? (
+                      <Loader2 className='h-4 w-4 animate-spin' />
+                    ) : (
+                      item.quantity
+                    )}
                   </span>
 
                   <button
                     onClick={() =>
                       handleQuantityChange(item.id, item.quantity + 1)
                     }
-                    className='p-1 rounded-md hover:bg-gray-100'
+                    disabled={isUpdatingQuantity}
+                    className='p-1 rounded-md hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed'
                   >
                     <Plus className='h-4 w-4' />
                   </button>
@@ -153,9 +165,14 @@ export default function CartPage() {
                   </p>
                   <button
                     onClick={() => handleRemoveItem(item.id)}
-                    className='text-red-500 hover:text-red-700 mt-1'
+                    disabled={isRemovingFromCart}
+                    className='text-red-500 hover:text-red-700 mt-1 disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-1'
                   >
-                    <Trash2 className='h-4 w-4' />
+                    {isRemovingFromCart ? (
+                      <Loader2 className='h-4 w-4 animate-spin' />
+                    ) : (
+                      <Trash2 className='h-4 w-4' />
+                    )}
                   </button>
                 </div>
               </div>
@@ -173,9 +190,17 @@ export default function CartPage() {
 
             <button
               onClick={handleCheckout}
-              className='w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold'
+              disabled={isCheckingOut}
+              className='w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 disabled:bg-blue-400 transition-colors font-semibold flex items-center justify-center space-x-2'
             >
-              Proceed to Checkout
+              {isCheckingOut ? (
+                <>
+                  <Loader2 className='h-5 w-5 animate-spin' />
+                  <span>Processing...</span>
+                </>
+              ) : (
+                <span>Proceed to Checkout</span>
+              )}
             </button>
           </div>
         </div>

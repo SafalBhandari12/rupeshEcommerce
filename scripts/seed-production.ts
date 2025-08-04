@@ -45,7 +45,7 @@ async function main() {
 
     console.log("Categories created/updated successfully");
 
-    // Create sample products
+    // Create sample products with verified, optimized images
     const products = [
       {
         name: "Smartphone",
@@ -55,7 +55,7 @@ async function main() {
         stock: 50,
         categoryId: electronics.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=500&h=500&fit=crop&q=80",
       },
       {
         name: "Laptop",
@@ -65,7 +65,7 @@ async function main() {
         stock: 30,
         categoryId: electronics.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=500&h=500&fit=crop&q=80",
       },
       {
         name: "Wireless Headphones",
@@ -75,7 +75,7 @@ async function main() {
         stock: 75,
         categoryId: electronics.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop&q=80",
       },
       {
         name: "T-Shirt",
@@ -84,7 +84,7 @@ async function main() {
         stock: 100,
         categoryId: clothing.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=500&h=500&fit=crop&q=80",
       },
       {
         name: "Jeans",
@@ -93,7 +93,7 @@ async function main() {
         stock: 60,
         categoryId: clothing.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&h=500&fit=crop&q=80",
       },
       {
         name: "Programming Book",
@@ -102,7 +102,7 @@ async function main() {
         stock: 25,
         categoryId: books.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=500&h=500&fit=crop&q=80",
       },
       {
         name: "Garden Tools Set",
@@ -111,7 +111,7 @@ async function main() {
         stock: 40,
         categoryId: home.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=500&h=500&fit=crop&q=80",
       },
       {
         name: "Coffee Maker",
@@ -120,19 +120,22 @@ async function main() {
         stock: 35,
         categoryId: home.id,
         imageUrl:
-          "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&h=500&fit=crop",
+          "https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&h=500&fit=crop&q=80",
       },
     ];
+
+    // Clear existing products first
+    await prisma.product.deleteMany({});
+    console.log("Cleared existing products");
 
     for (const product of products) {
       await prisma.product.create({
         data: product,
-      }).catch(() => {
-        console.log(`Product ${product.name} already exists, skipping...`);
       });
+      console.log(`Created product: ${product.name}`);
     }
 
-    console.log("Products created/updated successfully");
+    console.log("Products created successfully");
     console.log("Production database seeding completed successfully!");
   } catch (error) {
     console.error("Error during seeding:", error);

@@ -4,6 +4,10 @@ import { CartItem } from "@/app/types";
 interface CartStore {
   items: CartItem[];
   isLoading: boolean;
+  isAddingToCart: boolean;
+  isUpdatingQuantity: boolean;
+  isRemovingFromCart: boolean;
+  isCheckingOut: boolean;
   fetchCartItems: (userId: string) => Promise<void>;
   addToCart: (
     userId: string,
@@ -20,6 +24,10 @@ interface CartStore {
 export const useCartStore = create<CartStore>((set, get) => ({
   items: [],
   isLoading: false,
+  isAddingToCart: false,
+  isUpdatingQuantity: false,
+  isRemovingFromCart: false,
+  isCheckingOut: false,
 
   fetchCartItems: async (userId: string) => {
     set({ isLoading: true });
@@ -37,6 +45,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
   },
 
   addToCart: async (userId: string, productId: string, quantity = 1) => {
+    set({ isAddingToCart: true });
     try {
       const response = await fetch("/api/cart", {
         method: "POST",
@@ -49,10 +58,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
       }
     } catch (error) {
       console.error("Failed to add to cart:", error);
+    } finally {
+      set({ isAddingToCart: false });
     }
   },
 
   updateQuantity: async (itemId: string, quantity: number) => {
+    set({ isUpdatingQuantity: true });
     try {
       const response = await fetch("/api/cart", {
         method: "PUT",
@@ -69,10 +81,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
       }
     } catch (error) {
       console.error("Failed to update quantity:", error);
+    } finally {
+      set({ isUpdatingQuantity: false });
     }
   },
 
   removeFromCart: async (itemId: string) => {
+    set({ isRemovingFromCart: true });
     try {
       const response = await fetch("/api/cart", {
         method: "DELETE",
@@ -89,6 +104,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
       }
     } catch (error) {
       console.error("Failed to remove from cart:", error);
+    } finally {
+      set({ isRemovingFromCart: false });
     }
   },
 

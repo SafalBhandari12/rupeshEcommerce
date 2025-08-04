@@ -29,15 +29,19 @@ export default function Navbar() {
     };
 
     if (mounted) {
-      window.addEventListener('scroll', handleScroll);
-      return () => window.removeEventListener('scroll', handleScroll);
+      window.addEventListener("scroll", handleScroll);
+      return () => window.removeEventListener("scroll", handleScroll);
     }
   }, [mounted]);
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" });
+  };
 
   // Prevent hydration mismatch by rendering a simple navbar initially
   if (!mounted) {
     return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-200/30">
+      <nav className='fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-200/30'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='flex justify-between h-16'>
             <div className='flex items-center'>
@@ -46,7 +50,10 @@ export default function Navbar() {
               </Link>
             </div>
             <div className='flex items-center space-x-4'>
-              <Link href='/products' className='text-gray-600 hover:text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'>
+              <Link
+                href='/products'
+                className='text-gray-600 hover:text-gray-900 px-3 py-2 rounded-lg text-sm font-medium'
+              >
                 Products
               </Link>
             </div>
@@ -57,15 +64,20 @@ export default function Navbar() {
   }
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-      isScrolled 
-        ? 'bg-white/80 backdrop-blur-xl shadow-2xl mt-4 mx-4 rounded-2xl border border-white/20' 
-        : 'bg-white/70 backdrop-blur-lg shadow-lg border-b border-white/30'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        isScrolled
+          ? "bg-white/80 backdrop-blur-xl shadow-2xl mt-4 mx-4 rounded-2xl border border-white/20"
+          : "bg-white/70 backdrop-blur-lg shadow-lg border-b border-white/30"
+      }`}
+    >
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
         <div className='flex justify-between h-16'>
           <div className='flex items-center'>
-            <Link href='/' className='text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors duration-300'>
+            <Link
+              href='/'
+              className='text-2xl font-bold text-gray-900 hover:text-gray-700 transition-colors duration-300'
+            >
               ECommerce
             </Link>
           </div>
@@ -90,18 +102,22 @@ export default function Navbar() {
                       <Settings className='h-4 w-4' />
                       <span>Admin Panel</span>
                     </Link>
-                    
-                    <div className='flex items-center space-x-2 bg-gradient-to-r from-gray-800 to-gray-900 text-white px-4 py-2 rounded-xl border border-gray-700/50 shadow-lg'>
-                      <User className='h-4 w-4' />
-                      <span className='text-sm font-medium'>
-                        Admin: {session.user?.name || session.user?.email}
-                      </span>
+
+                    <div className='flex items-center space-x-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white px-4 py-2 rounded-xl border border-gray-700/50 shadow-lg'>
+                      <div className='flex items-center space-x-2'>
+                        <User className='h-4 w-4' />
+                        <span className='text-sm font-medium'>
+                          Admin: {session.user?.name || session.user?.email}
+                        </span>
+                      </div>
+                      <div className='w-px h-4 bg-gray-600'></div>
                       <button
-                        onClick={() => signOut()}
-                        className='text-gray-300 hover:text-white p-1 rounded-lg transition-colors duration-200'
-                        title="Sign Out"
+                        onClick={handleSignOut}
+                        className='flex items-center space-x-1 text-gray-300 hover:text-white px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/10'
+                        title='Sign Out'
                       >
                         <LogOut className='h-4 w-4' />
+                        <span className='text-xs font-medium'>Logout</span>
                       </button>
                     </div>
                   </>
@@ -127,17 +143,21 @@ export default function Navbar() {
                       <Package className='h-5 w-5' />
                     </Link>
 
-                    <div className='flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/30'>
-                      <User className='h-4 w-4 text-gray-600' />
-                      <span className='text-sm text-gray-700 font-medium'>
-                        {session.user?.name || session.user?.email}
-                      </span>
+                    <div className='flex items-center space-x-3 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/30'>
+                      <div className='flex items-center space-x-2'>
+                        <User className='h-4 w-4 text-gray-600' />
+                        <span className='text-sm text-gray-700 font-medium'>
+                          {session.user?.name || session.user?.email}
+                        </span>
+                      </div>
+                      <div className='w-px h-4 bg-gray-300'></div>
                       <button
-                        onClick={() => signOut()}
-                        className='text-gray-500 hover:text-gray-700 p-1 rounded-lg transition-colors duration-200'
-                        title="Sign Out"
+                        onClick={handleSignOut}
+                        className='flex items-center space-x-1 text-gray-500 hover:text-gray-700 px-2 py-1 rounded-lg transition-all duration-200 hover:bg-white/20'
+                        title='Sign Out'
                       >
                         <LogOut className='h-4 w-4' />
+                        <span className='text-xs font-medium'>Logout</span>
                       </button>
                     </div>
                   </>
